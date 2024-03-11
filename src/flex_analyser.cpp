@@ -263,6 +263,29 @@ void FlexAnalyser::loopThroughParticles(int rank, int size)
 		// Do the PCA and make histograms
 		principalComponentsAnalysis(inputdata, eigenvectors, eigenvalues, means, projected_data);
 
+		// Write the input data for particles to a file before doing PCA on them
+		FileName fnt = fn_out+"_norm_corrected_data_all_particles.txt";
+		std::ofstream  fh;
+		fh.open((fnt).c_str(), std::ios::out);
+		if (!fh)
+			REPORT_ERROR( (std::string)" FlexAnalyser::writeAllPCAProjections: cannot write to file: " + fnt);
+	
+		for (long int ipart = 0; ipart < inputdata.size(); ipart++)
+		{
+			data.MDimg.getValue(EMDL_IMAGE_NAME, fnt, ipart);
+			fh << fnt << " ";
+			for (int ival = 0; ival < inputdata[ipart].size(); ival++)
+			{
+				fh.width(15);
+				fh << inputdata[ipart][ival];
+	
+			}
+			fh << " \n";
+		}
+	
+		fh.close();
+
+		
 		FileName fn_evec = fn_out + "_eigenvectors.dat";
 		std::ofstream f_evec(fn_evec);
 		std::cout << " Eigenvectors (rotations only):" << std::endl;
