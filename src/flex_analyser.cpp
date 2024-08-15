@@ -285,8 +285,8 @@ void FlexAnalyser::loopThroughParticles(int rank, int size)
 		fh.close();
 
 		// Write the mean file data for particles to a file before doing PCA on them
-		FileName fn_evec = fn_out + "_means.dat";
-		std::ofstream f_evec(fn_evec);
+		FileName fn_mean = fn_out + "_means.dat";
+		std::ofstream f_evec(fn_mean);
 		std::cout << " Means (rotations only):" << std::endl;
 		for (int j = 0; j < means.size(; j++)
 		{
@@ -314,19 +314,19 @@ void FlexAnalyser::loopThroughParticles(int rank, int size)
 			}
 		}
 		std::cout << std::endl;
-		f_evec << std::endl;
+		f_mean << std::endl;
 		std::cout << " Full means including translations are written to " << fn_evec << std::endl;
 
-		f_evec << std::scientific;
+		f_mean << std::scientific;
 		
 			for (int j =0; j < means.size(); j++)
 			{
 				if (j > 0) f_evec << " ";
 				f_evec << means[j];
 			}
-			f_evec << std::endl;
+			f_mean << std::endl;
 
-		f_evec.close();
+		f_mean.close();
 		
 		// Write the eigenvectors output file
 		FileName fn_evec = fn_out + "_eigenvectors.dat";
