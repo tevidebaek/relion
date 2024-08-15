@@ -286,7 +286,7 @@ void FlexAnalyser::loopThroughParticles(int rank, int size)
 
 		// Write the mean file data for particles to a file before doing PCA on them
 		FileName fn_mean = fn_out + "_means.dat";
-		std::ofstream f_evec(fn_mean);
+		std::ofstream f_mean(fn_mean);
 		std::cout << " Means (rotations only):" << std::endl;
 		for (int j = 0; j < means.size(; j++)
 		{
@@ -306,7 +306,7 @@ void FlexAnalyser::loopThroughParticles(int rank, int size)
 			if (stro != "")
 			{
 				stro +=  "-body-" + integerToString(1 + (j / 6));
-				f_evec << stro << " ";
+				f_mean << stro << " ";
 				if (j % 6 < 3) {
 					std::cout << std::setw(12) << std::right << std::fixed;
 					std::cout << stro;
@@ -315,14 +315,14 @@ void FlexAnalyser::loopThroughParticles(int rank, int size)
 		}
 		std::cout << std::endl;
 		f_mean << std::endl;
-		std::cout << " Full means including translations are written to " << fn_evec << std::endl;
+		std::cout << " Full means including translations are written to " << fn_mean << std::endl;
 
 		f_mean << std::scientific;
 		
 			for (int j =0; j < means.size(); j++)
 			{
-				if (j > 0) f_evec << " ";
-				f_evec << means[j];
+				if (j > 0) f_mean << " ";
+				f_mean << means[j];
 			}
 			f_mean << std::endl;
 
