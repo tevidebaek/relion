@@ -288,7 +288,7 @@ void FlexAnalyser::loopThroughParticles(int rank, int size)
 		FileName fn_mean = fn_out + "_means.dat";
 		std::ofstream f_mean(fn_mean);
 		std::cout << " Means (rotations only):" << std::endl;
-		for (int j = 0; j < means.size(; j++)
+		for (int j = 0; j < means.size(); j++)
 		{
 			std::string stro = "";
 			if (j % 6 == 0)
